@@ -1,31 +1,20 @@
-import { sql } from "./sql";
+// Simple in-memory store for recipes. This replaces the previous
+// database-backed implementation so that the application works without
+// any external dependencies.
 
-const TABLE = "palacinky";
-
-export async function initDb() {
-  await sql(`CREATE TABLE IF NOT EXISTS ${TABLE} (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    kategorie VARCHAR(255),
-    img VARCHAR(255),
-    popis TEXT
-  )`);
-}
+/** @type {{ id: number; kategorie: string; img: string; popis: string }[]} */
+let data = [];
 
 export async function getList() {
-  await initDb();
-  const response = await sql(`SELECT id, kategorie, img FROM ${TABLE}`);
-  return Array.isArray(response?.data) ? response.data : response;
+  // Return only the basic fields used on the index page.
+  return data.map(({ id, kategorie, img }) => ({ id, kategorie, img }));
 }
 
 export async function insertRecipe({ kategorie, img, popis }) {
-  await initDb();
-  await sql(
-    `INSERT INTO ${TABLE} (kategorie, img, popis) VALUES ('${kategorie}', '${img}', '${popis}')`
-  );
+  const id = data.length > 0 ? data[data.length - 1].id + 1 : 1;
+  data.push({ id, kategorie, img, popis });
 }
 
 export async function getById(id) {
-  await initDb();
-  const res = await sql(`SELECT * FROM ${TABLE} WHERE id=${id}`);
-  return Array.isArray(res?.data) ? res.data[0] : res[0];
+  return data.find((item) => item.id === Number(id));
 }
