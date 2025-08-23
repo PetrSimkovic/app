@@ -1,0 +1,25 @@
+.dessert {
+    text-align: center;
+    margin: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff8f0;
+  }
+  
+  .dessert img {
+    display: block;
+    margin: auto;
+    padding-top: 15px;
+  }
+  
+  .dessert h1 {
+    font-size: 1.5em;
+    color: #d2691e;
+  }
+  
+  .dessert p {
+    font-size: 1.2em;
+    color: #ff4500;
+  }
+  
