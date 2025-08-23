@@ -9,18 +9,19 @@ export const meta = () => {
   return [{ title: "Palacinky" }, { name: "description", content: "Palacinky" }];
 };
 
-export async function loader() {
-  let list = await getList();
+export async function loader({ request }) {
+  let list = await getList(request);
   return list;
 }
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const kategorie = formData.get("kategorie");
-  const img = formData.get("img");
+  const kategorie = formData.get("kategorie")?.trim();
+  const img = formData.get("img")?.trim();
   const popis = formData.get("popis");
   if (kategorie && img) {
-    await insertRecipe({ kategorie, img, popis });
+    const cookie = await insertRecipe(request, { kategorie, img, popis });
+    return redirect("/", { headers: { "Set-Cookie": cookie } });
   }
   return redirect("/");
 }
