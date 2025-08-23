@@ -1,7 +1,12 @@
 import Header from "../Palacinkyy/header.jsx";
 import Main from "../Palacinkyy/main.jsx";
 import { Form, useLoaderData } from "@remix-run/react";
-import { getList, insertRecipe } from "../Palacinkyy/api/palacinky";
+import {
+  getList,
+  insertRecipe,
+  deleteRecipe,
+  updateRecipe,
+} from "../Palacinkyy/api/palacinky";
 import { redirect } from "@remix-run/node";
 
 
@@ -16,6 +21,31 @@ export async function loader({ request }) {
 
 export async function action({ request }) {
   const formData = await request.formData();
+  const intent = formData.get("_action");
+  if (intent === "delete") {
+    const id = formData.get("id");
+    if (id) {
+      const cookie = await deleteRecipe(request, id);
+      return redirect("/", { headers: { "Set-Cookie": cookie } });
+    }
+    return redirect("/");
+  }
+  if (intent === "edit") {
+    const id = formData.get("id");
+    const kategorie = formData.get("kategorie")?.trim();
+    const img = formData.get("img")?.trim();
+    const popis = formData.get("popis");
+    if (id && kategorie && img) {
+      const cookie = await updateRecipe(request, {
+        id: Number(id),
+        kategorie,
+        img,
+        popis,
+      });
+      return redirect("/", { headers: { "Set-Cookie": cookie } });
+    }
+    return redirect("/");
+  }
   const kategorie = formData.get("kategorie")?.trim();
   const img = formData.get("img")?.trim();
   const popis = formData.get("popis");
@@ -36,7 +66,7 @@ export default function Index() {
         <input name="kategorie" placeholder="Název" />
         <input name="img" placeholder="URL obrázku" />
         <input name="popis" placeholder="Popis" />
-        <button type="submit">Přidat</button>
+        <button type="submit" name="_action" value="create">Přidat</button>
       </Form>
       <Main list={list} />
     </>
