@@ -10,7 +10,8 @@ export default function Main({ list }) {
     <section>
       {items.map((palacinky) => (
         <Article
-          key={palacinky.kategorie}
+          key={palacinky.id}
+          id={palacinky.id}
           city={palacinky.kategorie}
           img={palacinky.img}
         />

@@ -1,16 +1,15 @@
 import { Link } from "@remix-run/react";
 
 /**
+ * @param {number} id
  * @param {string} city
  * @param {string} img
  */
-export default function Article({ city, img }) {
+export default function Article({ id, city, img }) {
   return (
     <article>
-      <Link to="/recept"><h1>{city}</h1></Link>
-     
-      <img src={img} alt={city} width={300} />
+      <Link to={`/recept/${id}`}><h1>{city}</h1></Link>
+      <img src={img} alt={city} />
     </article>
   );
-  
 }

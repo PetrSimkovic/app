@@ -1,6 +1,9 @@
 // app/routes/root.jsx
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { Analytics } from '@vercel/analytics/react';
+import stylesheet from './styles.css?url';
+
+export const links = () => [{ rel: 'stylesheet', href: stylesheet }];
 
 // Layout komponenta pro strukturu aplikace
 export function Layout({ children }) {
