@@ -14,7 +14,11 @@ export async function sql(sql) {
   });
 
   try {
-    const response = await fetch(url, { method: "POST", body: postJson });
+    const response = await fetch(url, {
+      method: "POST",
+      body: postJson,
+      headers: { "Content-Type": "application/json" },
+    });
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
