@@ -14,6 +14,7 @@ export default function Main({ list }) {
           id={palacinky.id}
           city={palacinky.kategorie}
           img={palacinky.img}
+          popis={palacinky.popis}
         />
       ))}
     </section>

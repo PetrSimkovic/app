@@ -23,7 +23,12 @@ async function readData(request) {
  */
 export async function getList(request) {
   const data = await readData(request);
-  return data.map(({ id, kategorie, img }) => ({ id, kategorie, img }));
+  return data.map(({ id, kategorie, img, popis }) => ({
+    id,
+    kategorie,
+    img,
+    popis,
+  }));
 }
 
 /**
@@ -47,4 +52,30 @@ export async function insertRecipe(request, { kategorie, img, popis }) {
 export async function getById(request, id) {
   const data = await readData(request);
   return data.find((item) => item.id === Number(id));
+}
+
+/**
+ * Deletes a recipe by id and returns a serialized Set-Cookie header value.
+ * @param {Request} request
+ * @param {number|string} id
+ */
+export async function deleteRecipe(request, id) {
+  const data = await readData(request);
+  const filtered = data.filter((item) => item.id !== Number(id));
+  return palacinkyCookie.serialize(filtered);
+}
+
+/**
+ * Updates an existing recipe in the cookie store and returns a serialized
+ * Set-Cookie header value.
+ * @param {Request} request
+ * @param {{ id: number; kategorie: string; img: string; popis: string }} recipe
+ */
+export async function updateRecipe(request, { id, kategorie, img, popis }) {
+  const data = await readData(request);
+  const index = data.findIndex((item) => item.id === Number(id));
+  if (index >= 0) {
+    data[index] = { ...data[index], kategorie, img, popis };
+  }
+  return palacinkyCookie.serialize(data);
 }
