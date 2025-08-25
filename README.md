@@ -18,8 +18,8 @@ Copy `.env.example` to `.env` and adjust as needed. The example configuration co
 
 ```
 DB_HOST=localhost
-DB_USER=simkovicp22
-DB_PASSWORD=nZBm6UG7sz
+DB_USER=username
+DB_PASSWORD=password
 DB_NAME=2it_simkovicp22
 ```
 
