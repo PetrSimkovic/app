@@ -19,7 +19,6 @@ export default function PostRoute() {
   return (
     <article>
       <h2>{post.title}</h2>
-      <p>{new Date(post.created_at).toLocaleDateString()}</p>
       <div>{post.content}</div>
     </article>
   );

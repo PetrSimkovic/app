@@ -12,16 +12,16 @@ export async function getConnection() {
 export async function getPosts() {
   const conn = await getConnection();
   const [rows] = await conn.query(
-    'SELECT id, title, created_at FROM posts ORDER BY created_at DESC'
+    "SELECT id, Titulek AS title FROM blogN ORDER BY id DESC"
   );
   await conn.end();
-  return rows as { id: number; title: string; created_at: Date }[];
+  return rows as { id: number; title: string }[];
 }
 
 export async function getPost(id: number) {
   const conn = await getConnection();
   const [rows] = await conn.query(
-    'SELECT id, title, content, created_at FROM posts WHERE id = ?',
+    "SELECT id, Titulek AS title, `text` AS content FROM blogN WHERE id = ?",
     [id]
   );
   await conn.end();
@@ -29,7 +29,6 @@ export async function getPost(id: number) {
     id: number;
     title: string;
     content: string;
-    created_at: Date;
   }[];
   return posts[0];
 }
