@@ -21,6 +21,7 @@ export default function ItemRoute() {
   return (
     <article>
       <h2>{post.title}</h2>
+
       <div>{post.content}</div>
     </article>
   );

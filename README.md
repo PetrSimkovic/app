@@ -18,9 +18,7 @@ Copy `.env.example` to `.env` and adjust as needed. The example configuration co
 
 ```
 DB_HOST=localhost
-DB_USER=username
-DB_PASSWORD=password
-DB_NAME=2it_simkovicp22
+
 ```
 
 These values map directly to the `DB_HOST`, `DB_USER`, `DB_PASSWORD` and `DB_NAME` environment variables used by the app.
