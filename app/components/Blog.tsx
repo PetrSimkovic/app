@@ -4,6 +4,7 @@ import { Link } from '@remix-run/react';
 export interface PostListItem {
   id: number;
   title: string;
+  created_at: string;
 }
 
 interface BlogProps {
@@ -13,13 +14,16 @@ interface BlogProps {
 export default function Blog({ posts }: BlogProps) {
   return (
     <main>
-      <ul>
+      <section>
         {posts.map((post) => (
-          <li key={post.id}>
-            <Link to={`/posts/${post.id}`}>{post.title}</Link>
-          </li>
+          <article key={post.id}>
+            <h2>
+              <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            </h2>
+            <p>{new Date(post.created_at).toLocaleDateString()}</p>
+          </article>
         ))}
-      </ul>
+      </section>
     </main>
   );
 }

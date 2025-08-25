@@ -15,7 +15,11 @@ export async function getPosts() {
     'SELECT id, title, created_at FROM posts ORDER BY created_at DESC'
   );
   await conn.end();
-  return rows as { id: number; title: string; created_at: Date }[];
+  const posts = rows as { id: number; title: string; created_at: Date }[];
+  return posts.map((post) => ({
+    ...post,
+    created_at: post.created_at.toISOString(),
+  }));
 }
 
 export async function getPost(id: number) {
@@ -31,5 +35,11 @@ export async function getPost(id: number) {
     content: string;
     created_at: Date;
   }[];
-  return posts[0];
+  const post = posts[0];
+  return post
+    ? {
+        ...post,
+        created_at: post.created_at.toISOString(),
+      }
+    : undefined;
 }
