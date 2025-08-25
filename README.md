@@ -4,18 +4,27 @@ This is a simple blog built with the Remix framework. It loads posts from a MySQ
 
 ## Database
 
-Create a `posts` table on your MySQL server with the following columns:
+Create a `blogN` table on your MySQL server with the following columns:
 
 ```sql
-CREATE TABLE posts (
+CREATE TABLE blogN (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(120) NOT NULL,
-  content TEXT NOT NULL,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  Titulek VARCHAR(120) NOT NULL,
+  text TEXT NOT NULL
 );
 ```
 
-Set the database connection credentials in environment variables `DB_HOST`, `DB_USER`, `DB_PASSWORD` and `DB_NAME`.
+Copy `.env.example` to `.env` and adjust as needed. The example configuration connects to a local MySQL server and exposes the common connection settings:
+
+```
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=username
+DB_PASSWORD=password
+DB_NAME=2it_simkovicp22
+```
+
+These values map directly to the `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` and `DB_NAME` environment variables used by the app. Update them to match your own MySQL server. If the connection fails, the server will log the underlying error to help with troubleshooting.
 
 ## Development
 
