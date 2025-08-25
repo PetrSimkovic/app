@@ -16,7 +16,7 @@ export default function Blog({ posts }: BlogProps) {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <Link to={`/posts/${post.id}`}>{post.title}</Link>
+            <Link to={`/item?id=${post.id}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

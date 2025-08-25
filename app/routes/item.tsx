@@ -2,8 +2,10 @@ import type { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { getPost } from '../db.server';
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const id = Number(params.id);
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const idParam = url.searchParams.get('id');
+  const id = idParam ? Number(idParam) : NaN;
   if (isNaN(id)) {
     throw new Response('Not Found', { status: 404 });
   }
@@ -14,7 +16,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return post;
 }
 
-export default function PostRoute() {
+export default function ItemRoute() {
   const post = useLoaderData<typeof loader>();
   return (
     <article>
