@@ -1,12 +1,14 @@
-// app/routes/root.jsx
+import React from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { Analytics } from '@vercel/analytics/react';
 import stylesheet from './styles.css?url';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 export const links = () => [{ rel: 'stylesheet', href: stylesheet }];
 
-// Layout komponenta pro strukturu aplikace
-export function Layout({ children }) {
+export function Layout({ children }: { children: React.ReactNode }) {
+  const year = new Date().getFullYear().toString();
   return (
     <html lang="en">
       <head>
@@ -16,7 +18,9 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
-        {children} {/* Tento children bude obsahovat obsah specifický pro routu */}
+        <Header />
+        {children}
+        <Footer copyright={year} />
         <ScrollRestoration />
         <Scripts />
         <Analytics />
@@ -25,7 +29,6 @@ export function Layout({ children }) {
   );
 }
 
-// Hlavní aplikace, která vykreslí Outlet pro danou cestu
 export default function App() {
   return <Outlet />;
 }
