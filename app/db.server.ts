@@ -33,3 +33,22 @@ export async function getPost(id: number) {
   }[];
   return posts[0];
 }
+
+export async function getComments(postId: number) {
+  const conn = await getConnection();
+  const [rows] = await conn.query(
+    'SELECT id, content, created_at FROM comments WHERE post_id = ? ORDER BY created_at DESC',
+    [postId]
+  );
+  await conn.end();
+  return rows as { id: number; content: string; created_at: Date }[];
+}
+
+export async function addComment(postId: number, content: string) {
+  const conn = await getConnection();
+  await conn.query(
+    'INSERT INTO comments (post_id, content) VALUES (?, ?)',
+    [postId, content]
+  );
+  await conn.end();
+}
