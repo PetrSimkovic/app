@@ -16,3 +16,6 @@ INT - čísla
 Varchar - text s omezenou délkou
 Text - neomezený text
 Date - datum
+
+Obrázek - v databázi sloupec img kam se bude vkládat url obrázku potom v kódu:
+`<img src={post.img} alt="" />` - v souboru kde se má zobrazovat
